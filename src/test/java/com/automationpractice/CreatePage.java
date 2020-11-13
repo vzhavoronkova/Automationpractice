@@ -6,14 +6,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreatePage {
     public WebDriver driver;
+    public WebDriverWait wait;
 
 
     public CreatePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, 60);
         this.driver = driver;
     }
 
@@ -55,8 +58,8 @@ public class CreatePage {
     private WebElement stateDD;
     @FindBy(xpath = "//input[@id=\"postcode\"]")
     private WebElement postcodeField;
-    /*@FindBy(xpath = "//select[@id=\"id_country\"]")
-    private WebElement countryDD;*/
+    @FindBy(xpath = "//select[@id=\"id_country\"]/option[@selected='selected']")
+    private WebElement countryDD;
     @FindBy(xpath = "//textarea[@id=\"other\"]")
     private WebElement otherField;
     @FindBy(xpath = "//input[@id=\"phone\"]")
@@ -70,44 +73,61 @@ public class CreatePage {
 
 
     public void createAccount() {
+        System.out.println("I click on Register Btn");
         CreatePage createAcc = new CreatePage(this.driver);
         registerBtn.click();
     }
 
     public String getUserEmail() {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id=\"email\"]")));
-        String userEmail = emailField.getAttribute("value");
-        //String userEmail = emailField.getText();
-        return userEmail;
+        return emailField.getAttribute("value");
+
     }
+
     public void inputFirst(String firstName) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(firstName);
+        System.out.println("I enter value for First Name");
+        firstNameField.sendKeys(firstName);
     }
+
     public void inputLast(String lastName) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(lastName);
+        System.out.println("I enter value for Last Name");
+        lastNameField.sendKeys(lastName);
     }
+
     public void inputPassw(String passw) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(passw);
+        System.out.println("I enter value for Password field");
+        passwdField.sendKeys(passw);
     }
+
     public void inputAddress(String address) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(address);
+        System.out.println("I enter value for Address field");
+        addressField.sendKeys(address);
     }
+
     public void inputCity(String city) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(city);
+        System.out.println("I enter value for City field");
+        cityField.sendKeys(city);
     }
+
+    public void selectState(String state) {
+        System.out.println("I selected state");
+        Select drpCountry = new Select(driver.findElement(By.id("id_state")));
+        drpCountry.selectByVisibleText(state);
+    }
+
     public void inputZip(String zip) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(zip);
+        System.out.println("I enter value for Post code field");
+        postcodeField.sendKeys(zip);
     }
+
+    public String getCountry() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id=\"id_country\"]/option[@selected='selected']")));
+        return countryDD.getText();
+    }
+
     public void inputPhone(String phone) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        emailField.sendKeys(phone);
+        System.out.println("I enter value for Mobile phone field");
+        mobileField.sendKeys(phone);
     }
 
 }

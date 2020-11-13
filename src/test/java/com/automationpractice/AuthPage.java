@@ -20,8 +20,10 @@ public class AuthPage {
     private WebElement createBtn;
 
     public void inputLogin(String login) {
+        System.out.println("I enter value for email");
         emailField.sendKeys(login);
     }
     public void clickCreateBtn() {
+        System.out.println("I click on Create Btn");
         createBtn.click(); }
 }

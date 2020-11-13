@@ -17,6 +17,7 @@ public class MainPage {
     public WebElement signBtn;
 
     public void clickSignBtn() {
+        System.out.println("I click on Sign in button");
         signBtn.click();
     }
 }
