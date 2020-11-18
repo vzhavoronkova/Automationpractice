@@ -84,6 +84,11 @@ public class CreatePage {
 
     }
 
+    public void clickEmail() {
+        CreatePage clickEm = new CreatePage(this.driver);
+        emailField.click();
+    }
+
     public void inputFirst(String firstName) {
         System.out.println("I enter value for First Name");
         firstNameField.sendKeys(firstName);
@@ -130,4 +135,31 @@ public class CreatePage {
         mobileField.sendKeys(phone);
     }
 
+    public String getColorFirstName() {
+        WebElement eleSearch = driver.findElement(By.xpath("//input[@id=\"customer_firstname\"]"));
+        String rgbFormat = eleSearch.getCssValue("background-color");
+        System.out.println("Color for first name is " + rgbFormat);
+        return rgbFormat;
+    }
+
+    public String getColorLastName() {
+        WebElement eleSearch = driver.findElement(By.xpath("//input[@id=\"customer_lastname\"]"));
+        String rgbFormat = eleSearch.getCssValue("background-color");
+        System.out.println("Color for last name is " + rgbFormat);
+        return rgbFormat;
+    }
+
+    public String getColorEmail() {
+        WebElement eleSearch = driver.findElement(By.xpath("//input[@id=\"email\"]"));
+        String rgbFormat = eleSearch.getCssValue("background-color");
+        System.out.println("Color for email field is " + rgbFormat);
+        return rgbFormat;
+    }
+
+    public String getColorPassw() {
+        WebElement eleSearch = driver.findElement(By.xpath("//input[@id=\"passwd\"]"));
+        String rgbFormat = eleSearch.getCssValue("background-color");
+        System.out.println("Color for password field is" + rgbFormat);
+        return rgbFormat;
+    }
 }

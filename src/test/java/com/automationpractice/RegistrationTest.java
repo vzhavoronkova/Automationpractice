@@ -3,6 +3,7 @@ package com.automationpractice;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -34,9 +35,11 @@ public class RegistrationTest {
         mainPage.clickSignBtn();
         authPage.inputLogin(ConfProperties.getProperty("login"));
         authPage.clickCreateBtn();
+        Assert.assertEquals(ConfProperties.getProperty("greenfield"), authPage.getColorField());
         createPage.inputFirst(ConfProperties.getProperty("firstName"));
         createPage.inputLast(ConfProperties.getProperty("lastName"));
         Assert.assertEquals(ConfProperties.getProperty("login"), createPage.getUserEmail());
+        createPage.clickEmail();
         createPage.inputPassw(ConfProperties.getProperty("passw"));
         createPage.inputAddress(ConfProperties.getProperty("address"));
         createPage.inputCity(ConfProperties.getProperty("city"));
@@ -44,13 +47,23 @@ public class RegistrationTest {
         createPage.inputZip(ConfProperties.getProperty("zip"));
         Assert.assertEquals(ConfProperties.getProperty("country"), createPage.getCountry());
         createPage.inputPhone(ConfProperties.getProperty("phone"));
+        Assert.assertEquals(ConfProperties.getProperty("greenfield"), createPage.getColorFirstName());
+        Assert.assertEquals(ConfProperties.getProperty("greenfield"), createPage.getColorLastName());
+        Assert.assertEquals(ConfProperties.getProperty("greenfield"), createPage.getColorEmail());
+        Assert.assertEquals(ConfProperties.getProperty("greenfield"), createPage.getColorPassw());
         createPage.createAccount();
         Assert.assertTrue(accountPage.getHeader().equalsIgnoreCase("My account"));
-        String expectedBtnText = ConfProperties.getProperty("firstName") +" "+ ConfProperties.getProperty("lastName");
+        String expectedBtnText = ConfProperties.getProperty("firstName") + " " + ConfProperties.getProperty("lastName");
         Assert.assertEquals(expectedBtnText, accountPage.getAccBtnText());
-
-
     }
 
+    @Test
+    public void existingAccountNegative() {
+        mainPage.clickSignBtn();
+        authPage.inputLogin(ConfProperties.getProperty("existlogin"));
+        authPage.clickCreateBtn();
+        Assert.assertEquals(ConfProperties.getProperty("alertfield"), authPage.getColorAlert());
+        Assert.assertEquals(ConfProperties.getProperty("alertmessage"), authPage.getAlertMessage());
+    }
 
 }
