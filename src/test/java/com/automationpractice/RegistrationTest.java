@@ -3,10 +3,8 @@ package com.automationpractice;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +12,6 @@ public class RegistrationTest {
     public static MainPage mainPage;
     public static AuthPage authPage;
     public static CreatePage createPage;
-    public static WebDriver driver;
     public static AccountPage accountPage;
 
     @BeforeClass
@@ -31,6 +28,9 @@ public class RegistrationTest {
     }
 
     @Test
+    /**
+     * If the test is down, please update the value for login in the conf.properties
+     */
     public void createAccountRequiredPositive() {
         mainPage.clickSignBtn();
         authPage.inputLogin(ConfProperties.getProperty("login"));
