@@ -1,8 +1,6 @@
 package com.automationpractice;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -13,11 +11,13 @@ public class RegistrationTest {
     public static AuthPage authPage;
     public static CreatePage createPage;
     public static AccountPage accountPage;
+    public static WebDriver driver;
+
 
     @BeforeClass
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         mainPage = new MainPage(driver);
         authPage = new AuthPage(driver);
         createPage = new CreatePage(driver);
@@ -64,6 +64,11 @@ public class RegistrationTest {
         authPage.clickCreateBtn();
         Assert.assertEquals(ConfProperties.getProperty("alertfield"), authPage.getColorAlert());
         Assert.assertEquals(ConfProperties.getProperty("alertmessage"), authPage.getAlertMessage());
+    }
+
+    @After
+    public void closeUp() {
+        driver.close();
     }
 
 }
